@@ -35,7 +35,7 @@ The system consists of three major components:
 
 ---
 
-### 👤 Auth Service (`auth-service`)
+### Auth Service (`auth-service`)
 - Secure user registration with password hashing (`bcryptjs`)
 - Login with JWT token issuance (1 hour expiry)
 - User roles: `resident`, `business_owner`, `community_organizer`
@@ -72,7 +72,7 @@ The system consists of three major components:
 
 ---
 
-## 🛠 Technologies Used
+## Technologies Used
 
 | Layer        | Stack                                                                 |
 |--------------|-----------------------------------------------------------------------|
@@ -84,9 +84,9 @@ The system consists of three major components:
 
 ---
 
-## 🚀 How to Start (Local Development)
+## How to Start (Local Development)
 
-### 🔧 Prerequisites
+### Prerequisites
 
 - Node.js 18+
 - MongoDB (local or Atlas)
@@ -201,7 +201,7 @@ MIT License — free to use, adapt, or extend for community or educational proje
 About the Developer
 Voltaire Roño
 Full-stack Software Engineer
-🌐 https://voltairerono.com
+https://voltairerono.com
 
 markdown
 Copy
