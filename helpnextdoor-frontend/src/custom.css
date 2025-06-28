@@ -9,7 +9,7 @@ html {
 .right-sidebar-title,
 .create-post-btn {
   font-family: 'Outfit', sans-serif !important;
-  font-weight: 900 !important; /* Black */
+  font-weight: 900 !important;
 }
 
 .placeholder-card h5,
@@ -17,15 +17,13 @@ html {
 .pagination .page-link,
 .btn, .sidebar-custom, .right-sidebar-custom {
   font-family: 'Outfit', sans-serif !important;
-  font-weight: 800 !important; /* ExtraBold */
+  font-weight: 800 !important; 
 }
-
-
 
 
 body, p, .placeholder-card p, .meta, .comments-list p, input, textarea, select, label {
   font-family: 'Manjari', sans-serif !important;
-  font-weight: 400 !important; /* Regular */
+  font-weight: 400 !important; 
 }
 
 
@@ -33,7 +31,7 @@ body, p, .placeholder-card p, .meta, .comments-list p, input, textarea, select, 
 
 
 /* ========================== */
-/* 🎨 NEUTRAL THEME UPDATE */
+/* NEUTRAL THEME UPDATE */
 /* ========================== */
 
 /* Colors */
@@ -41,7 +39,7 @@ body, p, .placeholder-card p, .meta, .comments-list p, input, textarea, select, 
   --bs-body-bg: #f9f5ed;
   --bs-navbar-bg: #f1e7d1;
   --bs-font-dark: #171717;
-  --bs-border-color: #000000; /* Black border */
+  --bs-border-color: #000000; 
 }
 
 /* BODY */
@@ -131,35 +129,6 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /* ========================== */
 /* ROOT VARIABLES */
 /* ========================== */
@@ -186,17 +155,6 @@ body {
   .text-muted {
     color: var(--bs-secondary-text) !important;
   }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -284,9 +242,6 @@ body {
 
 
 
-
-
-
 /* ========================== */
 /* RIGHT SIDEBAR STYLING */
 /* ========================== */
@@ -311,22 +266,6 @@ body {
   transition: box-shadow 0.3s ease;
 }
 
-/* Legacy experimental version (kept for reference, disabled) */
-/*
-.right-sidebar-shadow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  z-index: 0;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  border-radius: 4px;
-  pointer-events: none;
-}
-*/
 
 .right-sidebar-shadow.visible {
   opacity: 1;
@@ -386,7 +325,7 @@ body {
 /* Wrapper for spacing and shadow positioning */
 .post-placeholder-wrapper {
   position: relative;
-  margin-bottom: 1.25rem; /* Slightly increased spacing to prevent overlap */
+  margin-bottom: 1.25rem; 
   overflow: visible;
 }
 
@@ -413,7 +352,7 @@ body {
   font-size: 0.75rem;
   padding: 1rem;
   border: 1px solid var(--bs-border-color);
-  border-radius: 0; /* Explicitly square borders */
+  border-radius: 0; 
   transform: translate(0, 0);
   transition: transform 0.2s ease;
   z-index: 2;
@@ -425,7 +364,7 @@ body {
 }
 
 .post-placeholder-wrapper:hover .post-placeholder-shadow {
-  opacity: 1; /* Shadow appears on hover */
+  opacity: 1;
 }
 
 /* Inside post content */
@@ -451,8 +390,6 @@ body {
 
 /* ========================== */
 /* POST WRAPPER STATES */
-/* Controls rounding when using outer divs like post-wrapper.first, .middle, .last */
-/* (You can safely remove these if no rounding is desired) */
 /* ========================== */
 .post-wrapper.middle .placeholder-card,
 .post-wrapper.first .placeholder-card,
@@ -491,20 +428,16 @@ body {
   
 
 
-  
-
-
 
 
 /* ========================== */
 /* TAB SELECTOR STYLING (Glassdoor style) */
 /* ========================== */
 
-/* Tab Selector Container alignment update */
 .tab-selector-container {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Tabs on left, search bar perfectly right */
+  justify-content: space-between; 
   border-bottom: 1px solid var(--bs-border-color);
   gap: 1rem;
 }
@@ -515,7 +448,7 @@ body {
   gap: 2rem;
 }
 
-/* Search input styling (square, no shadow) */
+
 .tab-search-input {
   width: 200px;
   font-size: 0.75rem;
@@ -570,19 +503,10 @@ body {
 .tab-search-input {
   width: 200px;
   font-size: 0.75rem;
-  border-radius: 0; /* Square corners */
+  border-radius: 0;
   border: 1px solid var(--bs-border-color);
-  box-shadow: none !important; /* No shadow */
+  box-shadow: none !important; 
 }
-
-
-
-
-  
-
-
-
-
 
 
 
@@ -606,25 +530,15 @@ body {
     color: white;
     border: none;
     padding: 0.4rem 0.85rem;
-    border-radius: 0 !important; /* ✅ sharp corners */
+    border-radius: 0 !important;
     transition: background-color 0.2s ease;
   }
   
   
   .create-post-btn:hover {
-    background-color: #009f45; /* slightly darker green on hover */
+    background-color: #009f45;
   }
   
-
-
-
-
-
-
-
-
-
-
 
 
   /* ========================== */
@@ -632,7 +546,7 @@ body {
 /* ========================== */
 
 .create-post-card {
-    background-color: var(--bs-body-bg); /* ✅ Matches rest of the UI */
+    background-color: var(--bs-body-bg);
     border: 1px solid var(--bs-border-color);
     border-radius: 0.5rem;
     padding: 1.5rem;
@@ -695,21 +609,15 @@ body {
   }
   
 
-  /* Square corners for Post Discussion and Cancel buttons */
 .cancel-btn,
 .submit-btn {
   border-radius: 0 !important;
 }
 
-/* Square corners for inputs and textareas in CreateDiscussionPost */
+
 .field-input {
   border-radius: 0 !important;
 }
-
-
-
-
-
 
 
 
@@ -766,12 +674,6 @@ body {
   
 
 
-
-
-
-
-
-
   /* ========================== */
 /* Login/Register Button Styling */
 /* ========================== */
@@ -788,13 +690,9 @@ body {
   }
   
   .register-now-btn:hover {
-    color: var(--bs-primary); /* Green hover */
+    color: var(--bs-primary);
   }
   
-
-
-
-
 
   /* ========================== */
 /* Container */
@@ -802,7 +700,7 @@ body {
 
   @media (min-width: 1200px) {
     .container {
-      max-width: 995px; /* Adjust as needed (Glassdoor looks ~950-1000px) */
+      max-width: 995px; 
     }
   }
   
@@ -813,20 +711,6 @@ body {
     margin-right: auto;
   }
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -851,7 +735,7 @@ body {
   background-color: black;
   z-index: 1;
   pointer-events: none;
-  opacity: 0; /* Initially hidden */
+  opacity: 0; 
   transition: opacity 0.2s ease;
 }
 
@@ -859,12 +743,12 @@ body {
   position: relative;
   background-color: var(--bs-body-bg);
   padding: 1.5rem;
-  border-radius: 0; /* Sharp corners */
+  border-radius: 0; 
   border: 2px solid var(--bs-border-color);
   font-family: var(--bs-body-font-family);
   transform: translate(0, 0);
   transition: transform 0.2s ease;
-  z-index: 2; /* Ensure it sits above the shadow */
+  z-index: 2; 
 }
 
 .post-detail-card-wrapper:hover .post-detail-card {
@@ -872,7 +756,7 @@ body {
 }
 
 .post-detail-card-wrapper:hover .post-detail-card-shadow {
-  opacity: 1; /* Shadow appears only on hover */
+  opacity: 1; 
 }
 
 /* Remaining styles unchanged */
@@ -922,8 +806,8 @@ body {
 
 .btn.btn-primary.btn-sm:hover,
 .btn.btn-primary.btn-sm:focus {
-  background-color: #3973d3 !important; /* ✅ New highlight color */
-  color: white !important;             /* ✅ Keep white font */
+  background-color: #3973d3 !important; 
+  color: white !important;            
   border-color: #3973d3 !important;
 }
 
@@ -949,9 +833,8 @@ body {
 }
 
 
-  /* Volunteer Button – matches navbar buttons */
   .btn.btn-primary.btn-sm {
-    border-radius: 0; /* Sharp corners */
+    border-radius: 0; 
     
 
   background-color: #f1e7d1;
@@ -974,24 +857,23 @@ body {
     background-color: var(--bs-body-bg);
     font-size: 0.65rem;
     border: 1px solid var(--bs-border-color);
-    border-radius: 0 !important; /* 👈 Make it sharp-edged */
+    border-radius: 0 !important; 
   }
   
   .comments-list p {
     margin-bottom: 0.65rem;
-    font-size: 0.65rem; /* 👈 This controls the comment text size */
+    font-size: 0.65rem; 
     color: var(--bs-body-color);
   }
   
   .comments-list p strong {
-    font-size: 0.75rem;  /* 👈 This controls the user name (e.g., "User 1") */
+    font-size: 0.75rem; 
     font-weight: 600;
     display: block;
     margin-bottom: 0.2rem;
   }
   
 
-/* Comment Button – matches Volunteer Button styling */
 .btn.comment-btn {
   background-color: #f1e7d1;
   color: var(--bs-body-color);
@@ -999,31 +881,16 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   padding: 0.4rem 0.9rem;
-  border-radius: 0; /* Sharp corners */
+  border-radius: 0; 
   transition: all 0.2s ease;
 }
 
 .btn.comment-btn:hover,
 .btn.comment-btn:focus {
-  background-color: #4c9968 !important; /* ✅ New highlight color */
-  color: white !important;              /* ✅ Keep white font */
+  background-color: #4c9968 !important;
+  color: white !important;       
   border-color: #4c9968 !important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1032,8 +899,8 @@ body {
 /* Color for helpnextdoor brand */
 .navbar-brand {
   color: #3973d3 !important;
-  font-size: 1.5rem !important; /* Add this */
-  font-weight: 900 !important;   /* Ensure it's consistent with Outfit Black */
+  font-size: 1.5rem !important; 
+  font-weight: 900 !important;   
 }
 
 
@@ -1047,7 +914,7 @@ body {
   padding: 0.4rem 0.9rem;
   border-radius: 0;
   transition: background-color 0.2s ease;
-  text-decoration: none !important; /* ✅ REMOVE UNDERLINE */
+  text-decoration: none !important; 
 }
 
 
@@ -1058,26 +925,12 @@ body {
 
 
 
-/* 🎯 Highlight for About button specifically */
+/* Highlight for About button specifically */
 .about-highlight:hover {
   background-color: #e2685c !important;
   color: white !important;
   border-color: #e2685c !important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1131,30 +984,12 @@ body {
 
 
 
-
-
-
-
-
 .outfit-title {
   font-family: 'Outfit', sans-serif !important;
   font-weight: 900 !important;
   font-size: 1.25rem;
-  color: #000000 !important; /* ✅ Explicit black */
+  color: #000000 !important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1191,26 +1026,23 @@ body {
 
 
 
-
-
-
-/* 🎯 Update Account Details – Custom Styling */
+/* Update Account Details – Custom Styling */
 .right-sidebar-item.update-account-link {
-  color: #4b9866 !important; /* Primary green */
+  color: #4b9866 !important;
   text-decoration: underline;
   font-weight: 600;
   transition: color 0.2s ease;
 }
 
 .right-sidebar-item.update-account-link:hover {
-  color: #e1685e !important; /* Highlight salmon */
+  color: #e1685e !important;
   text-decoration: underline;
   cursor: pointer;
 }
 
 
 .login-card-wrapper {
-  margin-top: 1.5rem !important; /* Reduce from default (~3rem) */
+  margin-top: 1.5rem !important; 
 }
 
 
@@ -1218,30 +1050,9 @@ body {
 .footer-custom {
   background-color: var(--bs-navbar-bg) !important;
   border-top: 2px solid var(--bs-border-color) !important;
-  padding-top: 1rem !important;   /* ~.py-4 equivalent */
-  padding-bottom: 8rem !important; /* Match vertical padding exactly */
+  padding-top: 1rem !important; 
+  padding-bottom: 8rem !important; 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1270,8 +1081,6 @@ body {
   margin-bottom: 0;
   color: var(--bs-body-color) !important;
 }
-
-
 
 
 
