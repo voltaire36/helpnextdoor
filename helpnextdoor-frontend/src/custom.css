@@ -1,0 +1,1291 @@
+html {
+  zoom: 1.25;}
+
+
+/* Quick Outfit Font Prototyping */
+.navbar-brand, 
+.page-title,
+.sidebar-btn,
+.right-sidebar-title,
+.create-post-btn {
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 900 !important; /* Black */
+}
+
+.placeholder-card h5,
+.tab-button,
+.pagination .page-link,
+.btn, .sidebar-custom, .right-sidebar-custom {
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 800 !important; /* ExtraBold */
+}
+
+
+
+
+body, p, .placeholder-card p, .meta, .comments-list p, input, textarea, select, label {
+  font-family: 'Manjari', sans-serif !important;
+  font-weight: 400 !important; /* Regular */
+}
+
+
+
+
+
+/* ========================== */
+/* 🎨 NEUTRAL THEME UPDATE */
+/* ========================== */
+
+/* Colors */
+:root {
+  --bs-body-bg: #f9f5ed;
+  --bs-navbar-bg: #f1e7d1;
+  --bs-font-dark: #171717;
+  --bs-border-color: #000000; /* Black border */
+}
+
+/* BODY */
+body {
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-font-dark) !important;
+  font-family: 'Inter', sans-serif;
+}
+
+/* NAVBAR */
+.navbar-custom {
+  background-color: var(--bs-navbar-bg) !important;
+  border-bottom: 2px solid var(--bs-border-color) !important;
+}
+
+.navbar-custom .page-title,
+.create-post-title,
+.right-sidebar-title {
+  color: var(--bs-font-dark) !important;
+}
+
+/* LEFT SIDEBAR */
+.sidebar-custom {
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-font-dark) !important;
+  border: 2px solid var(--bs-border-color) !important;
+}
+
+.sidebar-custom button,
+.sidebar-btn {
+  color: var(--bs-font-dark) !important;
+  border-bottom: 1px solid var(--bs-border-color) !important;
+}
+
+/* RIGHT SIDEBAR */
+.right-sidebar-custom {
+  background-color: var(--bs-navbar-bg) !important;
+  color: var(--bs-font-dark) !important;
+  border: 2px solid var(--bs-border-color) !important;
+}
+
+.right-sidebar-title,
+.right-sidebar-item {
+  color: var(--bs-font-dark) !important;
+}
+
+/* CENTER CONTENT CARDS */
+.placeholder-card {
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-font-dark) !important;
+  border-left: 2px solid var(--bs-border-color) !important;
+  border-right: 2px solid var(--bs-border-color) !important;
+}
+
+.placeholder-card:first-child {
+  border-top: 2px solid var(--bs-border-color) !important;
+}
+
+.placeholder-card:last-child {
+  border-bottom: 2px solid var(--bs-border-color) !important;
+}
+
+.placeholder-card h5,
+.placeholder-card p,
+.placeholder-card .meta {
+  color: var(--bs-font-dark) !important;
+}
+
+/* BUTTONS */
+.create-post-btn,
+.submit-btn {
+  background-color: #e1685e !important;
+  color: white !important;
+  border: 1px solid var(--bs-border-color) !important;
+}
+
+.create-post-btn:hover,
+.submit-btn:hover {
+  background-color: #cba85f !important;
+  color: black !important;
+}
+
+/* GENERAL BORDER OVERRIDES (keep this lightweight, not forcing all elements) */
+* {
+  border-color: var(--bs-border-color);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* ========================== */
+/* ROOT VARIABLES */
+/* ========================== */
+:root {
+    --bs-primary: #e1685e;
+    --bs-secondary: #006064;
+    --bs-light: #ffffff;
+    --bs-body-bg: #F7F7F5;
+    --bs-body-color: #202124;
+    --bs-border-color: #000000;
+    --bs-secondary-text: #5F6368;
+    --bs-body-font-family: 'Inter', sans-serif;
+  }
+  
+  /* ========================== */
+  /* BASE STYLES */
+  /* ========================== */
+  body {
+    font-family: var(--bs-body-font-family);
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+  }
+  
+  .text-muted {
+    color: var(--bs-secondary-text) !important;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================== */
+/* LEFT SIDEBAR FIXED STYLING */
+/* ========================== */
+
+.left-sidebar-wrapper {
+  position: sticky;
+  top: 4.5rem; /* match navbar height */
+  z-index: 2;
+}
+
+
+/* Main Sidebar Box */
+.left-sidebar-custom {
+  position: relative;
+  background-color: var(--bs-body-bg);
+  border: 2px solid var(--bs-border-color);
+  padding: 1rem;
+  font-family: var(--bs-body-font-family);
+  font-size: 0.75rem;
+  color: var(--bs-body-color);
+  overflow-y: auto;
+  transform: translate(0, 0);
+  transition: transform 0.2s ease;
+  z-index: 2;
+}
+
+/* Shadow Layer Behind Sidebar */
+.left-sidebar-shadow {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Float Effect (hover animation) */
+.left-sidebar-custom:hover {
+  transform: translate(-3px, -3px);
+}
+
+/* Ensure columns do not clip shadows */
+.col-md-3, .col-lg-2 {
+  position: relative;
+  overflow: visible;
+}
+
+/* Limit Sidebar Height */
+.col-md-3 > .left-sidebar-wrapper,
+.col-lg-2 > .left-sidebar-wrapper {
+  max-height: calc(100vh - 4.5rem);
+}
+
+/* Sidebar Buttons */
+.sidebar-btn {
+  font-family: var(--bs-body-font-family);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: transparent;
+  color: var(--bs-body-color);
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  border: none;
+  border-bottom: 1px solid var(--bs-border-color);
+  text-align: left;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.sidebar-btn.active {
+  background-color: var(--bs-primary);
+  color: white;
+}
+
+.sidebar-btn:hover {
+  background-color: rgba(0, 177, 79, 0.08);
+}
+
+
+
+
+
+
+
+/* ========================== */
+/* RIGHT SIDEBAR STYLING */
+/* ========================== */
+
+.right-sidebar-wrapper {
+  position: sticky;
+  top: 4.5rem; /* Align with navbar height */
+  z-index: 2;
+  margin-bottom: 1rem;
+}
+
+/* Shadow layer (FINAL version) */
+.right-sidebar-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Matching left-sidebar */
+  z-index: 0;
+  border-radius: 0.5rem;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Legacy experimental version (kept for reference, disabled) */
+/*
+.right-sidebar-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 4px;
+  pointer-events: none;
+}
+*/
+
+.right-sidebar-shadow.visible {
+  opacity: 1;
+}
+
+/* Main card */
+.right-sidebar-custom {
+  position: relative;
+  background-color: #f5ebd6;
+  border: 1px solid black;
+  padding: 1rem;
+  z-index: 1;
+  border-radius: 4px;
+  transition: transform 0.2s ease;
+  font-size: 0.65rem;
+  font-family: var(--bs-body-font-family);
+  color: var(--bs-secondary-text);
+  overflow-y: auto;
+}
+
+/* Optional float on hover */
+.right-sidebar-custom:hover {
+  transform: translate(-3px, -3px);
+}
+
+/* Sidebar content formatting */
+.right-sidebar-title {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--bs-body-color);
+  font-size: 0.75rem;
+}
+
+.right-sidebar-item {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.right-sidebar-welcome-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.right-sidebar-welcome-body {
+  font-size: 0.65rem;
+  margin-bottom: 0.5rem;
+}
+
+
+
+
+/* ========================== */
+/* POST PLACEHOLDER STYLING */
+/* ========================== */
+
+/* Wrapper for spacing and shadow positioning */
+.post-placeholder-wrapper {
+  position: relative;
+  margin-bottom: 1.25rem; /* Slightly increased spacing to prevent overlap */
+  overflow: visible;
+}
+
+/* Shadow initially hidden */
+.post-placeholder-shadow {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Placeholder Card styling (square borders, hover effect) */
+.placeholder-card {
+  position: relative;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  font-family: var(--bs-body-font-family);
+  font-size: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0; /* Explicitly square borders */
+  transform: translate(0, 0);
+  transition: transform 0.2s ease;
+  z-index: 2;
+}
+
+/* Hover effect */
+.post-placeholder-wrapper:hover .placeholder-card {
+  transform: translate(-3px, -3px);
+}
+
+.post-placeholder-wrapper:hover .post-placeholder-shadow {
+  opacity: 1; /* Shadow appears on hover */
+}
+
+/* Inside post content */
+.placeholder-card .meta {
+  display: flex;
+  justify-content: space-between;
+  color: var(--bs-secondary-text);
+  font-size: 0.8rem;
+}
+
+.placeholder-card h5 {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--bs-primary);
+}
+
+.placeholder-card p {
+  margin-bottom: 0;
+  color: var(--bs-secondary-text);
+  font-size: 0.85rem;
+}
+
+/* ========================== */
+/* POST WRAPPER STATES */
+/* Controls rounding when using outer divs like post-wrapper.first, .middle, .last */
+/* (You can safely remove these if no rounding is desired) */
+/* ========================== */
+.post-wrapper.middle .placeholder-card,
+.post-wrapper.first .placeholder-card,
+.post-wrapper.last .placeholder-card {
+  border-radius: 0;
+}
+
+
+
+
+
+
+  /* ========================== */
+/* Modify Button Styling      */
+/* ========================== */
+.modify-button {
+    margin-top: 0.25rem;
+    text-align: left;
+  }
+  
+/* Modify Button Styling */
+.modify-link {
+    padding: 0;
+    font-size: 0.85rem;
+    color: var(--bs-secondary-text);
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+  
+  .modify-link:hover {
+    color: var(--bs-primary);
+    text-decoration: underline;
+  }
+  
+  
+
+
+  
+
+
+
+
+/* ========================== */
+/* TAB SELECTOR STYLING (Glassdoor style) */
+/* ========================== */
+
+/* Tab Selector Container alignment update */
+.tab-selector-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Tabs on left, search bar perfectly right */
+  border-bottom: 1px solid var(--bs-border-color);
+  gap: 1rem;
+}
+
+/* Tabs */
+.tab-buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Search input styling (square, no shadow) */
+.tab-search-input {
+  width: 200px;
+  font-size: 0.75rem;
+  border-radius: 0;
+  border: 1px solid var(--bs-border-color);
+  box-shadow: none !important;
+}
+
+
+.tab-button {
+  background: none;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.75rem 0;
+  color: black;
+  position: relative;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tab-button:hover::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 3px;
+  background-color: var(--bs-border-color);
+}
+
+.tab-button.active {
+  color: var(--bs-primary);
+  font-weight: 600;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 3px;
+  background-color: var(--bs-primary);
+}
+
+/* Search Bar Styling */
+.tab-search-container {
+  flex-shrink: 0;
+}
+
+.tab-search-input {
+  width: 200px;
+  font-size: 0.75rem;
+  border-radius: 0; /* Square corners */
+  border: 1px solid var(--bs-border-color);
+  box-shadow: none !important; /* No shadow */
+}
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  /* ========================== */
+/* PAGE TITLES & CREATE BUTTON */
+/* ========================== */
+
+.page-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--bs-body-color);
+    font-family: var(--bs-body-font-family);
+  }
+  
+  .create-post-btn {
+    font-size: 0.85rem;
+    font-weight: 600;
+    background-color: var(--bs-primary);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.85rem;
+    border-radius: 0 !important; /* ✅ sharp corners */
+    transition: background-color 0.2s ease;
+  }
+  
+  
+  .create-post-btn:hover {
+    background-color: #009f45; /* slightly darker green on hover */
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  /* ========================== */
+/* CREATE POST CARD STYLING  */
+/* ========================== */
+
+.create-post-card {
+    background-color: var(--bs-body-bg); /* ✅ Matches rest of the UI */
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    font-family: var(--bs-body-font-family);
+    font-size: 0.9rem;
+  }
+  
+  
+  /* Heading */
+  .create-post-title {
+    font-size: 0.90rem;
+    font-weight: 700;
+    color: var(--bs-body-color);
+    margin-bottom: 1rem;
+  }
+  
+  /* Labels */
+  .field-label {
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--bs-body-color);
+  }
+  
+  /* Inputs */
+  .field-input {
+    font-size: 0.65rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--bs-border-color);
+  }
+  
+  /* Buttons */
+  .cancel-btn {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-secondary-text);
+    border: 1px solid var(--bs-border-color);
+    font-weight: 500;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.75rem;
+    border-radius: 0.3rem;
+    transition: all 0.2s ease;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .submit-btn {
+    background-color: var(--bs-primary);
+    color: white;
+    border: none;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.75rem;
+    border-radius: 0.3rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #009f45;
+  }
+  
+
+  /* Square corners for Post Discussion and Cancel buttons */
+.cancel-btn,
+.submit-btn {
+  border-radius: 0 !important;
+}
+
+/* Square corners for inputs and textareas in CreateDiscussionPost */
+.field-input {
+  border-radius: 0 !important;
+}
+
+
+
+
+
+
+
+
+
+/* ========================== */
+/* PAGINATION & PER-PAGE STYLING */
+/* ========================== */
+.pagination {
+    font-family: var(--bs-body-font-family);
+    font-size: 0.85rem;
+    margin-bottom: 0;
+  }
+  
+  .pagination .page-link {
+    color: var(--bs-secondary-text);
+    border: none;
+    font-weight: 500;
+    background: transparent;
+    padding: 0.375rem 0.65rem;
+    transition: color 0.2s ease;
+  }
+  
+  .pagination .page-item.active .page-link {
+    color: var(--bs-primary);
+    font-weight: 600;
+    border-bottom: 2px solid var(--bs-primary);
+    border-radius: 0;
+  }
+  
+  .pagination .page-link:hover {
+    color: var(--bs-primary);
+    text-decoration: underline;
+  }
+  
+  .per-page-selector label,
+  .per-page-selector .btn {
+    font-family: var(--bs-body-font-family);
+    font-size: 0.85rem;
+  }
+  
+  .per-page-selector .btn {
+    color: var(--bs-secondary-text);
+    border-color: var(--bs-border-color);
+    background: transparent;
+    padding: 0.3rem 0.65rem;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  
+  .per-page-selector .btn.active,
+  .per-page-selector .btn:hover {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+  }
+  
+
+
+
+
+
+
+
+
+  /* ========================== */
+/* Login/Register Button Styling */
+/* ========================== */
+.register-now-btn {
+    background: none;
+    border: none;
+    color: black;
+    font-family: var(--bs-body-font-family);
+    font-weight: 500;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+  }
+  
+  .register-now-btn:hover {
+    color: var(--bs-primary); /* Green hover */
+  }
+  
+
+
+
+
+
+  /* ========================== */
+/* Container */
+/* ========================== */
+
+  @media (min-width: 1200px) {
+    .container {
+      max-width: 995px; /* Adjust as needed (Glassdoor looks ~950-1000px) */
+    }
+  }
+  
+
+  .custom-container {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================== */
+/* DISCUSSION POST DETAIL CARD */
+/* ========================== */
+
+.post-detail-card-wrapper {
+  position: relative;
+  overflow: visible;
+}
+
+.post-detail-card-shadow {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.2s ease;
+}
+
+.post-detail-card {
+  position: relative;
+  background-color: var(--bs-body-bg);
+  padding: 1.5rem;
+  border-radius: 0; /* Sharp corners */
+  border: 2px solid var(--bs-border-color);
+  font-family: var(--bs-body-font-family);
+  transform: translate(0, 0);
+  transition: transform 0.2s ease;
+  z-index: 2; /* Ensure it sits above the shadow */
+}
+
+.post-detail-card-wrapper:hover .post-detail-card {
+  transform: translate(-3px, -3px);
+}
+
+.post-detail-card-wrapper:hover .post-detail-card-shadow {
+  opacity: 1; /* Shadow appears only on hover */
+}
+
+/* Remaining styles unchanged */
+.post-detail-title {
+  font-weight: 600;
+  font-size: 0.90rem;
+  color: var(--bs-primary);
+  margin-bottom: 0.25rem;
+}
+
+.volunteer-count {
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--bs-body-color);
+  margin-bottom: 0.25rem;
+}
+
+.back-link {
+  color: var(--bs-body-color);
+  font-weight: 500;
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+.post-detail-content {
+  font-size: 0.75rem;
+  color: var(--bs-body-color);
+  margin-bottom: 1rem;
+}
+
+/* Volunteer Button Styling */
+.btn.btn-primary.btn-sm {
+  background-color: #f1e7d1;
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn.btn-primary.btn-sm:hover,
+.btn.btn-primary.btn-sm:focus {
+  background-color: #3973d3 !important; /* ✅ New highlight color */
+  color: white !important;             /* ✅ Keep white font */
+  border-color: #3973d3 !important;
+}
+
+
+.post-detail-card input.form-control {
+  background-color: var(--bs-body-bg);
+  font-size: 0.65rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.375rem;
+}
+
+.comments-list p {
+  margin-bottom: 0.65rem;
+  font-size: 0.65rem;
+  color: var(--bs-body-color);
+}
+
+.comments-list p strong {
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+
+  /* Volunteer Button – matches navbar buttons */
+  .btn.btn-primary.btn-sm {
+    border-radius: 0; /* Sharp corners */
+    
+
+  background-color: #f1e7d1;
+    color: var(--bs-body-color);
+    border: 1px solid var(--bs-border-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    transition: all 0.2s ease;
+  }
+  
+  .btn.btn-primary.btn-sm:hover,
+  .btn.btn-primary.btn-sm:focus {
+    background-color: var(--bs-primary);
+    color: white;
+    border-color: var(--bs-primary);
+  }
+  
+  .post-detail-card input.form-control {
+    background-color: var(--bs-body-bg);
+    font-size: 0.65rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0 !important; /* 👈 Make it sharp-edged */
+  }
+  
+  .comments-list p {
+    margin-bottom: 0.65rem;
+    font-size: 0.65rem; /* 👈 This controls the comment text size */
+    color: var(--bs-body-color);
+  }
+  
+  .comments-list p strong {
+    font-size: 0.75rem;  /* 👈 This controls the user name (e.g., "User 1") */
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  
+
+/* Comment Button – matches Volunteer Button styling */
+.btn.comment-btn {
+  background-color: #f1e7d1;
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: 0; /* Sharp corners */
+  transition: all 0.2s ease;
+}
+
+.btn.comment-btn:hover,
+.btn.comment-btn:focus {
+  background-color: #4c9968 !important; /* ✅ New highlight color */
+  color: white !important;              /* ✅ Keep white font */
+  border-color: #4c9968 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Color for helpnextdoor brand */
+.navbar-brand {
+  color: #3973d3 !important;
+  font-size: 1.5rem !important; /* Add this */
+  font-weight: 900 !important;   /* Ensure it's consistent with Outfit Black */
+}
+
+
+/* About button – match Log in / Sign up */
+.btn.nav-btn {
+  background-color: transparent !important;
+  color: black !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 800 !important;
+  border: 1px solid var(--bs-border-color) !important;
+  padding: 0.4rem 0.9rem;
+  border-radius: 0;
+  transition: background-color 0.2s ease;
+  text-decoration: none !important; /* ✅ REMOVE UNDERLINE */
+}
+
+
+.btn.nav-btn:hover {
+  background-color: #e2685c  !important;
+  color: black !important;
+}
+
+
+
+/* 🎯 Highlight for About button specifically */
+.about-highlight:hover {
+  background-color: #e2685c !important;
+  color: white !important;
+  border-color: #e2685c !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================== */
+/* LOGIN/REGISTER CARD STYLING */
+/* ========================== */
+
+.login-card-wrapper {
+  position: relative;
+  margin-bottom: 2rem;
+  overflow: visible;
+}
+
+.login-card-shadow {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.login-card {
+  position: relative;
+  background-color: var(--bs-body-bg);
+  border: 2px solid var(--bs-border-color);
+  padding: 1.5rem;
+  font-family: var(--bs-body-font-family);
+  font-size: 0.85rem;
+  transform: translate(0, 0);
+  transition: transform 0.2s ease;
+  z-index: 2;
+}
+
+.login-card-wrapper:hover .login-card {
+  transform: translate(-3px, -3px);
+}
+
+.login-card-wrapper:hover .login-card-shadow {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+.outfit-title {
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 1.25rem;
+  color: #000000 !important; /* ✅ Explicit black */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================== */
+/* Unified Modify Post Button */
+/* ========================== */
+.modify-action-btn {
+  background-color: #f1e7d1;
+  color: black;
+  border: 1px solid black;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.75rem;
+  font-family: 'Outfit', sans-serif !important;
+  border-radius: 0 !important;
+  transition: all 0.2s ease;
+}
+
+.modify-action-btn:hover {
+  background-color: #e2685c;
+  color: white;
+  border-color: #e2685c;
+}
+
+
+
+
+
+
+
+
+
+
+/* 🎯 Update Account Details – Custom Styling */
+.right-sidebar-item.update-account-link {
+  color: #4b9866 !important; /* Primary green */
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.right-sidebar-item.update-account-link:hover {
+  color: #e1685e !important; /* Highlight salmon */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+.login-card-wrapper {
+  margin-top: 1.5rem !important; /* Reduce from default (~3rem) */
+}
+
+
+/* FOOTER */
+.footer-custom {
+  background-color: var(--bs-navbar-bg) !important;
+  border-top: 2px solid var(--bs-border-color) !important;
+  padding-top: 1rem !important;   /* ~.py-4 equivalent */
+  padding-bottom: 8rem !important; /* Match vertical padding exactly */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================== */
+/* Right Sidebar – Welcome Message Styling */
+/* ========================== */
+
+.right-sidebar-welcome {
+  color: var(--bs-body-color);
+}
+
+.right-sidebar-welcome-title {
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  color: var(--bs-body-color) !important;
+}
+
+.right-sidebar-welcome-body {
+  font-family: 'Manjari', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 0.75rem;
+  margin-bottom: 0;
+  color: var(--bs-body-color) !important;
+}
+
+
+
+
+
+
+
+
+
+/* Tab Search Styling */
+.tab-search-container {
+  margin-left: auto;
+  max-width: 250px;
+}
+
+.tab-search-input {
+  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+}

@@ -1,0 +1,855 @@
+
+
+community-service PROJECT STRUCTURE: 
+
+
+MICROFRONTENDS-MICROSERVICES-GRAPHQL/
+├── .qodo/
+├── backend/
+│   ├── ApolloStudioTestQueries/
+│   ├── auth-service/
+│   └── community-service/
+│       ├── node_modules/
+│       ├── src/
+│       │   ├── config/
+│       │   │   ├── auth.js
+│       │   │   └── db.js
+│       │   ├── graphql/
+│       │   │   └── schema.js
+│       │   ├── models/
+│       │   │   ├── Comment.js
+│       │   │   ├── CommunityPost.js
+│       │   │   ├── HelpRequest.js
+│       │   │   └── PastInteraction.js
+│       │   ├── resolvers/
+│       │   │   ├── aiResolver.js
+│       │   │   ├── commentResolver.js
+│       │   │   └── communityResolver.js
+│       │   ├── routes/
+│       │   │   ├── aiAgentService.js
+│       │   │   ├── langChainAgent.mjs
+│       │   │   └── index.js
+│       ├── .env
+│       ├── Backup Files/
+│       ├── listModels.js
+│       ├── package-lock.json
+│       ├── package.json
+│       └── ProjectStructure
+├── frontend/
+├── .gitignore
+├── Backend Structure
+├── Frontend Structure
+└── Project Structure
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.env :
+
+
+
+PORT=4001
+MONGODB_URI=mongodb://localhost:27017/EmergingTechnology_Assignment3
+JWT_SECRET=your_super_secret_key
+GEMINI_API_KEY=AIzaSyAYp1HQ5PsUjygc0QgYw80L_6tKyTzbUqQ
+
+
+
+
+
+
+
+
+
+
+
+index.js :
+
+
+// File: backend/community-service/src/index.js
+
+import { config } from 'dotenv';
+config();
+
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
+import connectDB from './config/db.js';
+import typeDefs from './graphql/schema.js';
+import communityResolvers from './resolvers/communityResolver.js';
+import commentResolvers from './resolvers/commentResolver.js';
+import aiResolver from './resolvers/aiResolver.js';
+
+const startServer = async () => {
+  const app = express();
+  await connectDB();
+
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers: [communityResolvers, commentResolvers, aiResolver],
+    context: ({ req }) => ({ req })
+  });
+
+  await server.start();
+  server.applyMiddleware({ app });
+
+  const PORT = process.env.PORT || 4001;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+  });
+};
+
+startServer();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+auth.js :
+
+
+
+
+
+// File: backend/community-service/src/config/auth.js (ESM version)
+
+import jwt from 'jsonwebtoken';
+
+export const verifyToken = (token) => {
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch (err) {
+    throw new Error('Invalid or expired token');
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+db.js :
+
+
+
+// File: backend/community-service/src/config/db.js (ESM version)
+
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('MongoDB connected');
+  } catch (err) {
+    console.error('MongoDB connection error:', err.message);
+    process.exit(1);
+  }
+};
+
+export default connectDB;
+
+
+
+
+
+
+
+
+
+
+
+
+schema.js :
+
+
+
+
+
+
+import { gql } from 'apollo-server-express';
+
+const typeDefs = gql`
+  # -------------------------
+  # User (for author references)
+  # -------------------------
+  type User {
+    id: ID!
+    username: String!
+  }
+
+  # -------------------------
+  # Community Post
+  # -------------------------
+  type CommunityPost {
+    id: ID!
+    author: User!
+    title: String!
+    content: String!
+    category: String!
+    aiSummary: String
+    createdAt: String
+    updatedAt: String
+  }
+
+  # -------------------------
+  # Help Request
+  # -------------------------
+  type HelpRequest {
+    id: ID!
+    author: User!
+    description: String!
+    location: String
+    isResolved: Boolean
+    volunteers: [ID]
+    createdAt: String
+    updatedAt: String
+  }
+
+  # -------------------------
+  # Comment
+  # -------------------------
+  type Comment {
+    id: ID!
+    post: ID!
+    author: ID!
+    content: String!
+    createdAt: String
+  }
+
+  # -------------------------
+  # AI Response
+  # -------------------------
+  type AIResponse {
+    text: String!
+    suggestedQuestions: [String]!
+    retrievedPosts: [CommunityPost]!
+  }
+
+  # -------------------------
+  # Queries
+  # -------------------------
+  type Query {
+    getAllPosts: [CommunityPost]
+    getPostById(id: ID!): CommunityPost
+    getPaginatedPosts(limit: Int!, offset: Int!, category: String!): [CommunityPost]
+
+    getAllHelpRequests: [HelpRequest]
+    getHelpRequestById(id: ID!): HelpRequest
+    getPaginatedHelpRequests(limit: Int!, offset: Int!): [HelpRequest]
+    getHelpRequestsByUser(userId: ID!): [HelpRequest]
+
+    getCommentsByPost(postId: ID!): [Comment]
+    communityAIQuery(input: String!): AIResponse!
+  }
+
+  # -------------------------
+  # Mutations
+  # -------------------------
+  type Mutation {
+    createPost(author: ID!, title: String!, content: String!, category: String!): CommunityPost
+    updatePost(id: ID!, content: String, category: String, aiSummary: String): CommunityPost
+    deletePost(id: ID!): Boolean                               # ✅ Added mutation
+
+    createHelpRequest(author: ID!, description: String!, location: String): HelpRequest
+    updateHelpRequest(id: ID!, description: String!, location: String!): HelpRequest
+    resolveHelpRequest(id: ID!): HelpRequest
+    volunteerForHelp(id: ID!, userId: ID!): HelpRequest
+    deleteHelpRequest(id: ID!): Boolean
+
+    addComment(post: ID!, author: ID!, content: String!): Comment
+  }
+`;
+
+export default typeDefs;
+
+
+
+
+
+
+
+
+
+
+Comment.js :
+
+
+
+// File: backend/community-service/src/models/Comment.js (ESM version)
+
+import mongoose from 'mongoose';
+
+const { Schema, model } = mongoose;
+
+const commentSchema = new Schema({
+  post: { type: Schema.Types.ObjectId, ref: 'CommunityPost', required: true },
+  author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  content: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
+const Comment = model('Comment', commentSchema);
+export default Comment;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CommunityPost.js :
+
+
+
+
+
+// File: backend/community-service/src/models/CommunityPost.js
+
+import mongoose from 'mongoose';
+
+const { Schema } = mongoose;
+
+const communityPostSchema = new Schema({
+  author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  category: { type: String, required: true, enum: ['news', 'discussion'] },
+  aiSummary: { type: String },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date }
+});
+
+const CommunityPost = mongoose.model('CommunityPost', communityPostSchema);
+export default CommunityPost;
+
+
+
+
+
+
+HelpRequest.js :
+
+// File: backend/community-service/src/models/HelpRequest.js
+
+import mongoose from 'mongoose';
+
+const { Schema } = mongoose;
+
+const helpRequestSchema = new Schema({
+  author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  description: { type: String, required: true },
+  location: { type: String },
+  isResolved: { type: Boolean, default: false },
+  volunteers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date }
+});
+
+const HelpRequest = mongoose.model('HelpRequest', helpRequestSchema);
+export default HelpRequest;
+
+
+
+
+
+
+
+
+
+
+
+PastInteraction.js :
+
+
+
+
+// File: backend/community-service/src/models/PastInteraction.js
+
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
+
+const pastInteractionSchema = new Schema({
+  userQuery: { type: String, required: true },
+  aiResponse: { type: String, required: true },
+  suggestedQuestions: [String],
+  timestamp: { type: Date, default: Date.now }
+});
+
+const PastInteraction = model('PastInteraction', pastInteractionSchema);
+export default PastInteraction;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+aiAgentService.js :
+
+
+
+// File: backend/community-service/src/services/aiAgentService.js
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+import PastInteraction from '../models/PastInteraction.js';
+
+export async function communityAIHandler(input) {
+  // ✅ Dynamically import LangChain agent (ESM module)
+  const { runLangChainAgent } = await import('./langChainAgent.mjs');
+
+  // 🔍 Generate AI response using LangChain logic
+  const aiResult = await runLangChainAgent(input);
+
+  // 💾 Save to MongoDB (for recommendations / logging)
+  await PastInteraction.create({
+    userQuery: input,
+    aiResponse: aiResult.text,
+    suggestedQuestions: aiResult.suggestedQuestions,
+  });
+
+  // ✅ Return final result in GraphQL format
+  return {
+    text: aiResult.text,
+    suggestedQuestions: aiResult.suggestedQuestions,
+    retrievedPosts: aiResult.retrievedPosts,
+  };
+}
+
+
+
+
+
+
+
+
+
+aiResolver.js :
+
+
+// File: backend/community-service/src/resolvers/aiResolver.js
+
+import { communityAIHandler } from '../services/aiAgentService.js';
+
+const aiResolver = {
+  Query: {
+    communityAIQuery: async (_, { input }) => {
+      return await communityAIHandler(input);
+    }
+  }
+};
+
+export default aiResolver;
+
+
+
+
+
+
+
+
+langChainAgent.mjs :
+
+
+// File: backend/community-service/src/services/langChainAgent.mjs
+
+import { config } from 'dotenv';
+config();
+
+import CommunityPost from '../models/CommunityPost.js';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+import { PromptTemplate } from 'langchain/prompts';
+import { LLMChain } from 'langchain/chains';
+import { MemoryVectorStore } from 'langchain/vectorstores/memory';
+import { Document } from 'langchain/document';
+import { FakeEmbeddings } from 'langchain/embeddings/fake';
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+const runLangChainAgent = async (userQuery) => {
+  // Step 1: Fetch relevant posts from DB
+  const posts = await CommunityPost.find({
+    $or: [
+      { title: { $regex: userQuery, $options: 'i' } },
+      { content: { $regex: userQuery, $options: 'i' } }
+    ]
+  });
+
+  // Step 2: Create LangChain documents and build vector store
+  const docs = posts.map(p => new Document({ pageContent: p.content }));
+  const vectorStore = await MemoryVectorStore.fromDocuments(docs, new FakeEmbeddings());
+  const retriever = vectorStore.asRetriever();
+  const relevantDocs = await retriever.getRelevantDocuments(userQuery);
+  const contextText = relevantDocs.map(d => d.pageContent).join('\n---\n');
+
+  // Step 3: Build prompt for Gemini
+  const promptText = `
+You are a helpful assistant summarizing community discussions.
+
+Context:
+${contextText}
+
+User asked: "${userQuery}"
+
+Please respond clearly and suggest 3 follow-up questions.
+`;
+
+  // Step 4: Use Gemini to generate the response
+  const model = genAI.getGenerativeModel({ model: 'models/gemini-1.5-pro' }); // ✅ Use valid model name
+  const result = await model.generateContent(promptText);
+  const text = result.response.text();
+
+  // Step 5: Return structured AI response
+  return {
+    text,
+    retrievedPosts: posts,
+    suggestedQuestions: [
+      "Would you like recent or older discussions?",
+      "Do you prefer summaries or detailed responses?",
+      "Should I include more related topics next time?"
+    ],
+  };
+};
+
+export { runLangChainAgent };
+
+
+
+
+
+
+
+
+
+
+
+
+
+commentResolver.js :
+
+
+// File: backend/community-service/src/resolvers/commentResolver.js
+
+import Comment from '../models/Comment.js';
+
+const commentResolvers = {
+  Query: {
+    getCommentsByPost: async (_, { postId }) => {
+      return await Comment.find({ post: postId }).sort({ createdAt: -1 });
+    }
+  },
+  Mutation: {
+    addComment: async (_, { post, author, content }) => {
+      const newComment = new Comment({ post, author, content });
+      return await newComment.save();
+    }
+  }
+};
+
+export default commentResolvers;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+communityResolver.js :
+
+
+
+
+
+
+
+import CommunityPost from '../models/CommunityPost.js';
+import HelpRequest from '../models/HelpRequest.js';
+import { verifyToken } from '../config/auth.js';
+import User from '../models/User.js';
+
+const communityResolvers = {
+  Query: {
+    getAllPosts: async () => {
+      return await CommunityPost.find().sort({ createdAt: -1 });
+    },
+
+    getPostById: async (_, { id }) => {
+      const post = await CommunityPost.findById(id).populate('author', 'username');
+      if (!post) throw new Error('Post not found');
+      return post;
+    },
+
+    getPaginatedPosts: async (_, { limit, offset, category }) => {
+      return await CommunityPost.find({ category })
+        .sort({ createdAt: -1 })
+        .skip(offset)
+        .limit(limit)
+        .populate('author', 'username');
+    },
+
+    getAllHelpRequests: async () => {
+      return await HelpRequest.find().sort({ createdAt: -1 });
+    },
+
+    getHelpRequestById: async (_, { id }) => {
+      const help = await HelpRequest.findById(id);
+      if (!help) throw new Error('Help request not found');
+      return help;
+    },
+
+    getPaginatedHelpRequests: async (_, { limit, offset }) => {
+      return await HelpRequest.find()
+        .sort({ createdAt: -1 })
+        .skip(offset)
+        .limit(limit)
+        .populate('author', 'username');
+    },
+
+    getHelpRequestsByUser: async (_, { userId }) => {
+      return await HelpRequest.find({ author: userId })
+        .sort({ createdAt: -1 })
+        .populate('author', 'username');
+    },
+  },
+
+  Mutation: {
+    createPost: async (_, { author, title, content, category }, context) => {
+      const token = context.req.headers.authorization?.split(" ")[1];
+      const user = verifyToken(token);
+
+      if (category === 'news' && user.role === 'resident') {
+        throw new Error('Residents are not allowed to post news.');
+      }
+
+      const newPost = new CommunityPost({
+        author,
+        title,
+        content,
+        category,
+        createdAt: Date.now()
+      });
+
+      const savedPost = await newPost.save();
+      return await CommunityPost.findById(savedPost._id).populate('author', 'username');
+    },
+
+    updatePost: async (_, { id, content, aiSummary }, context) => {
+      const token = context.req.headers.authorization?.split(" ")[1];
+      const user = verifyToken(token);
+
+      const post = await CommunityPost.findById(id);
+      if (!post) throw new Error('Post not found');
+
+      if (String(post.author) !== user.id && user.role !== 'community_organizer') {
+        throw new Error('Unauthorized to update this post');
+      }
+
+      post.content = content;
+      post.aiSummary = aiSummary;
+      post.updatedAt = Date.now();
+
+      return await post.save();
+    },
+
+    deletePost: async (_, { id }, context) => {
+      const token = context.req.headers.authorization?.split(" ")[1];
+      const user = verifyToken(token);
+
+      const post = await CommunityPost.findById(id);
+      if (!post) throw new Error("Post not found");
+
+      if (String(post.author) !== user.id && user.role !== "community_organizer") {
+        throw new Error("Unauthorized to delete this post");
+      }
+
+      await CommunityPost.findByIdAndDelete(id);
+      return true;
+    },
+
+    createHelpRequest: async (_, { author, description, location }, context) => {
+      const token = context.req.headers.authorization?.split(" ")[1];
+      const user = verifyToken(token);
+
+      const helpRequest = new HelpRequest({
+        author,
+        description,
+        location,
+        createdAt: Date.now()
+      });
+
+      const saved = await helpRequest.save();
+      return await HelpRequest.findById(saved._id).populate('author', 'username');
+    },
+
+    updateHelpRequest: async (_, { id, description, location }, context) => {
+      const token = context.req.headers.authorization?.split(" ")[1];
+      const user = verifyToken(token);
+
+      const help = await HelpRequest.findById(id);
+      if (!help) throw new Error('Help request not found');
+
+      if (String(help.author) !== user.id && user.role !== 'community_organizer') {
+        throw new Error('Unauthorized to update this help request');
+      }
+
+      help.description = description;
+      help.location = location;
+      help.updatedAt = Date.now();
+
+      return await help.save();
+    },
+
+    resolveHelpRequest: async (_, { id }, context) => {
+      const token = context.req.headers.authorization?.split(" ")[1];
+      const user = verifyToken(token);
+
+      if (user.role !== 'community_organizer') {
+        throw new Error('Only community organizers can resolve help requests.');
+      }
+
+      const help = await HelpRequest.findById(id);
+      if (!help) throw new Error('Help request not found');
+
+      help.isResolved = true;
+      help.updatedAt = Date.now();
+      return await help.save();
+    },
+
+    volunteerForHelp: async (_, { id, userId }, context) => {
+      const token = context.req.headers.authorization?.split(" ")[1];
+      const user = verifyToken(token);
+
+      const help = await HelpRequest.findById(id);
+      if (!help) throw new Error("Help request not found");
+
+      if (help.isResolved) {
+        throw new Error("Cannot volunteer for a resolved help request.");
+      }
+
+      if (!help.volunteers.includes(userId)) {
+        help.volunteers.push(userId);
+        help.updatedAt = Date.now();
+        await help.save();
+      }
+
+      return help;
+    },
+
+    deleteHelpRequest: async (_, { id }, context) => {
+      const token = context.req.headers.authorization?.split(" ")[1];
+      const user = verifyToken(token);
+
+      const help = await HelpRequest.findById(id);
+      if (!help) throw new Error("Help request not found");
+
+      if (String(help.author) !== user.id && user.role !== "community_organizer") {
+        throw new Error("Unauthorized to delete this help request");
+      }
+
+      await HelpRequest.findByIdAndDelete(id);
+      return true;
+    }
+  }
+};
+
+export default communityResolvers;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+User.js :
+
+// File: community-service/src/models/User.js
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
+
+const userSchema = new Schema({
+  username: String,
+  email: String,
+  password: String,
+  role: String,
+  createdAt: Date
+}, { collection: 'users' }); // ✅ Must match the collection name in auth-service
+
+const User = mongoose.model('User', userSchema);
+export default User;
